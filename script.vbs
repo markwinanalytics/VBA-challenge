@@ -16,7 +16,7 @@ Dim vol As Double
 vol = 0
 Dim row As Double
 row = 2
-Dim column As Integer
+Dim column As Double
 column = 1
 openp = Cells(2, column + 2).Value
 For i = 2 To LastRow
