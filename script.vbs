@@ -1,7 +1,6 @@
 Sub vbachallenge()
 Dim ws As Worksheet
 For Each ws In ActiveWorkbook.Worksheets
-ws.Activate
 LastRow = ws.Cells(Rows.Count, 1).End(xlUp).row
 Cells(1, "i").Value = "Ticker"
 Cells(1, "j").Value = "Yearly Change"
