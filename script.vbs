@@ -7,44 +7,43 @@ Cells(1, "i").Value = "Ticker"
 Cells(1, "j").Value = "Yearly Change"
 Cells(1, "k").Value = "Percent Change"
 Cells(1, "l").Value = "Total Stock Volume"
-Dim open_price As Double
-Dim close_price As Double
+Dim openp As Double
+Dim closep As Double
 Dim yearly_change As Double
-Dim ticker_name As String
+Dim ticker As String
 Dim percent_change As Double
-Dim volume As Double
-volume = 0
+Dim vol As Double
+vol = 0
 Dim row As Double
 row = 2
 Dim column As Integer
 column = 1
-open_price = Cells(2, column + 2).Value
+openp = Cells(2, column + 2).Value
 For i = 2 To LastRow
 If Cells(i + 1, column).Value <> Cells(i, column).Value Then
-ticker_name = Cells(i, column).Value
-Cells(row, column + 8).Value = ticker_name
-close_price = Cells(i, column + 5).Value
-yearly_change = close_price - open_price
+ticker = Cells(i, column).Value
+Cells(row, column + 8).Value = ticker
+closep = Cells(i, column + 5).Value
+yearly_change = closep - openp
 Cells(row, column + 9).Value = yearly_change
-If (open_price = 0 And close_price = 0) Then
+If (openp = 0 And closep = 0) Then
 percent_change = 0
-ElseIf (open_price = 0 And close_price <> 0) Then
+ElseIf (openp = 0 And closep <> 0) Then
 percent_change = 1
 Else
-percent_change = yearly_change / open_price
+percent_change = yearly_change / openp
 Cells(row, column + 10).Value = percent_change
 Cells(row, column + 10).NumberFormat = "0.00%"
 End If
-volume = volume + Cells(i, column + 6).Value
-Cells(row, column + 11).Value = volume
+vol = vol + Cells(i, column + 6).Value
+Cells(row, column + 11).Value = vol
 row = row + 1
-open_price = Cells(i + 1, column + 2)
-volume = 0
+openp = Cells(i + 1, column + 2)
+vol = 0
 Else
-volume = volume + Cells(i, column + 6).Value
+vol = vol + Cells(i, column + 6).Value
 End If
 Next i
-
 YearlyChangeLastRow = ws.Cells(Rows.Count, column + 8).End(xlUp).row
 For j = 2 To YearlyChangeLastRow
 If (Cells(j, column + 9).Value > 0 Or Cells(j, column + 9).Value = 0) Then
@@ -55,13 +54,11 @@ Cells(j, column + 9).Interior.ColorIndex = 3
 Cells(j, column + 9).Font.ColorIndex = 1
 End If
 Next j
-
 Cells(2, column + 14).Value = "Greatest % Increase"
 Cells(3, column + 14).Value = "Greatest % Decrease"
 Cells(4, column + 14).Value = "Greatest Total Volume"
 Cells(1, column + 15).Value = "Ticker"
 Cells(1, column + 16).Value = "Value"
-
 For Z = 2 To YearlyChangeLastRow
 If Cells(Z, column + 10).Value = Application.WorksheetFunction.Max(ws.Range("K2:k" & YearlyChangeLastRow)) Then
 Cells(2, column + 15).Value = Cells(Z, column + 8).Value
@@ -78,6 +75,3 @@ End If
 Next Z
 Next ws
 End Sub
-
-
-
